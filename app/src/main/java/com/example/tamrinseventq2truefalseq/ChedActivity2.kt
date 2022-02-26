@@ -11,5 +11,7 @@ class ChedActivity2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding= ActivityChed2Binding.inflate(layoutInflater)
         setContentView(binding.root)
+        var getInfo=intent.getBooleanExtra("question",true).toString()
+        binding.button6.setOnClickListener { binding.textView2.text= getInfo}
     }
 }

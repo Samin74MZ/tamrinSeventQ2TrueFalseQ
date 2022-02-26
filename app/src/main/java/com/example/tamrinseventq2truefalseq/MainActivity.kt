@@ -16,6 +16,12 @@ class MainActivity : AppCompatActivity() {
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.textViewQ.text=listOfQuestion[qNumber].question
+        if (qNumber==0){
+            binding.buttonPrev.isEnabled=false
+        }
+        if (qNumber==9){
+            binding.buttonNext.isEnabled=false
+        }
     }
 
     private fun initView(){
@@ -29,42 +35,49 @@ class MainActivity : AppCompatActivity() {
     }
     fun choseButton(view:View){
         if (view==binding.buttonPrev){
-            if (qNumber==0){
-                view.isEnabled
-            }else{
-                qNumber--
+                qNumber=qNumber-1
                 updateQuestion(listOfQuestion[qNumber])
-            }
+            binding.buttonT.isEnabled=true
+            binding.buttonF.isEnabled=true
         }
         if (view==binding.buttonNext){
-            if (qNumber==9){
-                view.isEnabled
-            }else{
-                qNumber++
+                qNumber=qNumber+1
                 updateQuestion(listOfQuestion[qNumber])
-            }
+            binding.buttonT.isEnabled=true
+            binding.buttonF.isEnabled=true
+            binding.buttonPrev.isEnabled=true
         }
         if (view==binding.buttonCheat){
             initView()
             listOfQuestion[qNumber].cheat=true
         }
         if (view==binding.buttonF){
-            if (binding.buttonF.text==listOfQuestion[qNumber].answer.toString()){
-                Toast.makeText(this,"Correct!",Toast.LENGTH_SHORT).show()
+            if (binding.buttonF.text.toString().lowercase()==listOfQuestion[qNumber].answer.toString()){
+                if (listOfQuestion[qNumber].cheat){
+                    Toast.makeText(this,"Cheating is wrong!",Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(this,"Correct!",Toast.LENGTH_SHORT).show()
+                }
             }else{
                 Toast.makeText(this,"Incorrect!",Toast.LENGTH_SHORT).show()
             }
-            view.isEnabled
-            binding.buttonT.isEnabled
+            binding.buttonT.isEnabled=false
+            view.isEnabled=false
+
         }
         if (view==binding.buttonT){
-            if (binding.buttonT.text==listOfQuestion[qNumber].answer.toString()){
-                Toast.makeText(this,"Correct!",Toast.LENGTH_SHORT).show()
+            if (binding.buttonT.text.toString().lowercase()==listOfQuestion[qNumber].answer.toString()){
+                if (listOfQuestion[qNumber].cheat){
+                    Toast.makeText(this,"Cheating is wrong!",Toast.LENGTH_SHORT).show()
+                }
+                else{
+                    Toast.makeText(this,"Correct!",Toast.LENGTH_SHORT).show()
+                }
             }else{
                 Toast.makeText(this,"Incorrect!",Toast.LENGTH_SHORT).show()
             }
-            view.isEnabled
-            binding.buttonF.isEnabled
+            view.isEnabled=false
+            binding.buttonF.isEnabled=false
         }
     }
 }
