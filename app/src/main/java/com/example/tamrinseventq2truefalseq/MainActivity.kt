@@ -35,17 +35,24 @@ class MainActivity : AppCompatActivity() {
     }
     fun choseButton(view:View){
         if (view==binding.buttonPrev){
-                qNumber=qNumber-1
+            qNumber -= 1
                 updateQuestion(listOfQuestion[qNumber])
             binding.buttonT.isEnabled=true
             binding.buttonF.isEnabled=true
+            binding.buttonNext.isEnabled=true
+            if (qNumber==0){
+                binding.buttonPrev.isEnabled=false
+            }
         }
         if (view==binding.buttonNext){
-                qNumber=qNumber+1
+            qNumber += 1
                 updateQuestion(listOfQuestion[qNumber])
             binding.buttonT.isEnabled=true
             binding.buttonF.isEnabled=true
             binding.buttonPrev.isEnabled=true
+            if (qNumber==9){
+                binding.buttonNext.isEnabled=false
+            }
         }
         if (view==binding.buttonCheat){
             initView()
